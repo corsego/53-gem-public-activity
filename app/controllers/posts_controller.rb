@@ -25,7 +25,10 @@ class PostsController < ApplicationController
   end
 
   def update
+    Post.public_activity_off
     if @post.update(post_params)
+      Post.public_activity_on
+      @post.create_activity :details_updated, parameters: { time_zone: Time.zone.now }
       redirect_to @post, notice: "Post was successfully updated."
     else
       render :edit, status: :unprocessable_entity

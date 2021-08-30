@@ -1,2 +1,11 @@
 <h1>Dashboard#index</h1>
 <p>Find me in app/views/dashboard/index.html.erb</p>
+
+<% @activities.each do |a| %>
+  <%= a.created_at %>
+  <%= link_to a.trackable.title, a.trackable if a.trackable_type == 'Post' %>
+  <%= a.key %>
+  <%= a.owner&.email %>
+  <%= a.parameters %>
+  <br>
+<% end %>
